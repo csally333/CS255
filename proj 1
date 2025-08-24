@@ -1,0 +1,106 @@
+Title: DriverPass — Business Requirements Document
+Author: Cameron Salazar
+Course: CS255
+Date: August 24, 2025
+
+1. Executive Summary
+DriverPass needs a unified platform to improve driving test outcomes by combining online written-test preparation with scheduled, in-person driving instruction. The system will let students study, practice, and book lessons; instructors manage availability and record feedback; and administrators oversee users, content, and performance.
+
+2. Business Need and Problem
+- Many learners fail driving tests due to inadequate preparation, limited instruction access, and poor coordination.
+- DriverPass seeks a hybrid solution that centralizes study tools, lesson scheduling, and progress tracking at an affordable price.
+
+3. Stakeholders and Users
+- Client sponsor / leadership
+- Administrators
+- Instructors
+- Students (primary end users)
+
+4. Scope
+In scope (initial release)
+- Student registration, login, and package purchase
+- Online practice exams with instant scoring and feedback
+- Lesson scheduling with instructor availability and locations
+- Instructor schedule management and lesson feedback entry
+- Admin dashboards for user, schedule, and content management
+- Progress tracking for scores, lessons, and completion history
+- Browser and mobile-friendly access
+
+Out of scope (initial release)
+- Real-time vehicle location
+- DMV system integration
+- Multi-language content beyond English
+
+5. Objectives and Measurable Goals
+- Students can create accounts and purchase packages within minutes
+- Page responses under normal load ≤ 3 seconds
+- Practice exams provide immediate scores and explanations
+- Scheduling prevents double-booking and surfaces nearest availability
+- Administrators can generate usage and performance reports
+- Secure authentication with optional two-factor for staff
+
+6. Functional Requirements (examples)
+- The system shall validate user credentials on login.
+- The system shall allow students to register and choose a training package.
+- The system shall allow students to take practice tests and receive feedback.
+- The system shall allow students to schedule, reschedule, and cancel driving lessons.
+- The system shall display instructor availability and lesson locations.
+- The system shall allow instructors to manage availability and record lesson notes.
+- The system shall track student test scores, lesson progress, and schedule history.
+- The system shall allow administrators to manage users, content, and reports.
+
+7. Nonfunctional Requirements
+Performance and platform
+- Web-based application usable on modern browsers and mobile devices
+- Typical page response ≤ 3 seconds under normal load
+- Quarterly content and feature updates
+
+Technology constraints
+- Runs on Windows and macOS via browser
+- Backend uses a scalable relational database (MySQL or PostgreSQL)
+- Cloud deployment on AWS or Azure supported
+
+Security and accuracy
+- Unique user ID per account; case-sensitive usernames and passwords
+- HTTPS/TLS for all data in transit
+- After five failed login attempts, lock account temporarily and alert admin
+- Password reset via verified email; optional two-factor authentication
+
+Adaptability and administration
+- Roles and privileges configurable via admin UI without code changes
+- Compatible with ongoing web and mobile OS updates
+- IT admin access to logs, database views, and user controls
+
+8. User Interface Needs
+- Consistent, accessible browser and mobile experience
+- Students: purchase packages, take exams, schedule lessons, view progress
+- Instructors: view calendars, manage appointments, submit feedback
+- Administrators: dashboards for users, schedules, content, and reports
+
+9. Assumptions
+- Users have internet-connected devices and basic digital literacy
+- Instructors maintain their availability
+- Curriculum content is provided by DriverPass specialists
+
+10. Limitations and Constraints
+- Budget and staff availability limit scope and pace
+- English-only content at first release
+- DMV integration deferred
+
+11. Risks and Mitigations
+- Scheduling conflicts → enforce atomic booking and conflict checks
+- High traffic during exam periods → scale app tier and cache read-heavy content
+- Security threats → MFA for staff, rate limiting, audit trails, regular patching
+
+12. Success Metrics and KPIs
+- Task completion time for registration and scheduling
+- Practice exam completion rates and average scores
+- Lesson no-show rate reduction
+- Uptime and page response times
+- User satisfaction ratings
+
+13. Schedule
+- See attached Gantt chart (Lucidchart) aligning to interview plan
+
+14. Approval
+- Sign-off: Cam Salazr 8/24/25
