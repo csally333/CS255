@@ -1,0 +1,74 @@
+Title: DriverPass — System Design Document
+Author: Cameron Salazar
+Course: CS255
+Date: August 24, 2025
+
+1. Architecture Overview
+- Web application with a responsive front end, stateless backend API, and managed relational database.
+- Rationale: clear separation of concerns, scalability, and maintainability for evolving features.
+
+2. Context and Deployment
+- External systems: payment processor, email/SMS provider; optional DMV content feed later.
+- Environments: Development, Testing, Production.
+- Cloud deployment with load balancer, TLS termination, nightly DB backups, and infrastructure as code.
+
+3. UML Diagrams (placeholders)
+- Use Case Diagram: students, instructors, admins interacting with exams, scheduling, reporting.
+- Activity Diagrams: take practice test; schedule lesson.
+- Sequence Diagram: create booking flow across UI, API, scheduler, DB, notifier.
+- Class Diagram: Student, Instructor, PracticeTest, RoadLesson, Feedback, Payment, Schedule, User, Role.
+
+4. Component Design
+- Frontend web app: HTML5 and JavaScript responsive UI.
+- Backend API: REST JSON using Node.js Express or Java Spring or C Sharp .NET.
+- Modules: auth, user profile, practice exams, scheduling, payments, reporting.
+- Scheduler service enforces availability rules and prevents double-booking.
+
+5. Data Design
+- Entities: Student, Instructor, User, Role, PracticeTest, Question, Answer, Result, RoadLesson, Schedule, Feedback, Payment, Package.
+- Relationships: Student has many Results and RoadLessons; Instructor has many RoadLessons and Schedules; Payments link Students to Packages.
+- Storage: Managed PostgreSQL or MySQL; indexes on user, schedule, and result lookups; backups and retention policies.
+
+6. API and Integration
+- Auth endpoints for login, logout, reset password.
+- Student endpoints for packages, exams, results, and scheduling.
+- Instructor endpoints for availability and lesson notes.
+- Admin endpoints for user and report management.
+- Integrations: payment processor for purchases; email and SMS for notifications.
+
+7. Security and Compliance
+- Strong passwords; MFA for staff; least privilege roles for student, instructor, admin.
+- HTTPS everywhere; encryption at rest for sensitive data.
+- Input validation and parameterized queries; secure session management and rate limiting.
+- Audit trails for scheduling, payments, and profile updates.
+- Payments handled by certified processor; no raw card storage.
+
+8. Nonfunctional Targets
+- Availability 99.5 percent monthly uptime.
+- Typical API and page response ≤ 500 milliseconds under normal load.
+- Horizontal scalability with stateless app tier and optional database read replicas.
+- Maintainability via modular services, code standards, automated tests, and linting.
+
+9. Observability
+- Centralized logging, metrics, and uptime monitoring with alerts.
+- Dashboards for key flows: login, exam submission, scheduling.
+
+10. Testing Strategy
+- Unit, integration, end-to-end, accessibility, and performance tests.
+- Test data and seeded environments; CI pipeline with automated tests and security scans.
+
+11. Deployment and CI or CD
+- Git repository with branches and pull requests.
+- Automated build, test, and deploy to each environment via pipeline.
+- Blue green or rolling deployments in production.
+
+12. Traceability
+- Map BRD requirements to design and tests:
+  - FR scheduling → scheduler component, Schedule and RoadLesson tables, booking API, E2E tests for conflict prevention.
+  - FR practice exams → exam module, Result entity, grading service, latency tests.
+  - NFR security → auth module, MFA, rate limiting tests, audit logs.
+
+13. Open Issues and Next Steps
+- DMV integration feasibility and scope for a later phase.
+- Mobile app wrapper or PWA enhancements based on adoption.
+- Localization plan after English-only launch.
